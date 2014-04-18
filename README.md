@@ -1,47 +1,121 @@
-clira-windows-installer
-=======================
+# Building Clira Windows Installer (Cygwin)
 
-This repository contains the necessary files to build the Windows CLIRA
-installer.
+This document will cover instructions on how to build the Clira Windows
+installer for Cygwin as well as how to update the libslax, lighttpd-for-juise,
+and juise packages for Cygwin.
 
-Prerequisites
--------------
+---
 
-* Inno Setup (http://www.jrsoftware.org/isinfo.php)
-* This repository checked out
+## Building Clira Windows Installer
 
-How to Build the Windows Installer
-----------------------------------
+* Install INNO Setup from http://www.jrsoftware.org/isdl.php
+* Check out the 'clira-windows-installer' github repository to your Windows
+  machine
+* Rename (or copy) the 'clira-windows-installer' directory to C:\CLIRABASE  (If
+  you wish to change this directory, you will need to modify the `clira.iss`
+  file.
+* Double click the `clira.iss` file to launch INNO Setup with it.  If you need
+  to change the version of the output setup.exe file, modify `clira.iss` and
+  make sure you commit it.
+* Choose Build and it will output the setup file to
+  `C:\CLIRABASE\Output\setup.exe`
 
-First off, install Inno Setup.  This is a Windows installer framework that
-uses .iss files as the input to build the installer application.
+---
 
-Wherever you checked out the repository to, you will need to modify the
-clira.iss Inno Setup Script file to point to this location.  If you don't want
-to modify the file, check the repository out into C:\CLIRABASE.
+## Compiling and Updating libslax, lighttpd-for-juise, juise for Cygwin
 
-If you need to modify the location, search and replace C:\CLIRABASE to
-wherever you have the repository.  The Inno Setup script expects to find the
-files that it needs to include in the installer in this location.
+* Download Cygwin installer (32 bit) from http://www.cygwin.com/install.html
+* Install Cygwin and make sure you have the following packages installed as
+  well:
 
-After this is done, open clira.iss in the Inno Setup Compiler and choose
-"Build".  It will create a "Output" directory which contains the built
-CLIRA installer setup.exe file.
+    autoconf  
+    automake  
+    bison  
+    cvs  
+    gcc-core  
+    git  
+    libbz2-devel  
+    libcurl-devel  
+    libpcre-devel  
+    libsqlite3-devel  
+    libssh2-devel  
+    libtool  
+    libuuid-devel  
+    libxml2-devel  
+    libxslt-devel  
+    make  
+    openssh  
+    openssl-devel  
+    patch  
+    pkg-config  
+    vim  
+    wget  
 
-Things To Know
---------------
+* You will need to install a few php packages from CYGWINPORTS.  Visit
+  https://sourceware.org/cygwinports/ for instructions on how to add the
+  CYGWINPORTS repository.  Install the following CYGWINPORTS packages:
 
-The ISS file will package up all the prerequisite cygwin install files (and
-the Cygwin installer) from C:\CLIRABASE\cygwin into the .exe file.
+    php  
+    php-json  
+    php-pdo_sqlite  
+    php-posix  
+    php-sqlite3  
 
-During installation, these files will be extracted, and Inno Setup will run
-the Cygwin installer in local script mode (which won't prompt the user for
-input) against these prerequisites.  It also will install startup/shutdown
-scripts for CLIRA.
+---
 
-It may be necessary to update the prerequisites for Cygwin due to security
-updates.  If so, we use the standard Cygwin repository for pulling our
-prerequisites from, as well as Cygwin Ports
-(https://sourceware.org/cygwinports/) for the PHP prerequisite.
+### libslax
 
+* Checkout libslax from https://github.com/Juniper/libslax.git
 
+```
+cd libslax/packaging/cygwin
+./cygwin.sh
+```
+
+* This should build a libslax bundle for cygwin
+
+### lighttpd-for-juise
+
+* Checkout lighttpd-for-juise from https://github.com/Juniper/lighttpd-for-juise.git
+
+```
+cd lighttpd-for-juise/packaging/cygwin
+./cygwin.sh
+```
+
+* This should build a lighttpd-for-juise bundle for cygwin
+
+### juise
+
+* Checkout juise from https://github.com/Juniper/juise.git
+
+```
+cd juise/packaging/cygwin
+./cygwin.sh <path-to-lighttpd-from-previous-step>
+```
+
+* This should build a juise bundle for cygwin
+
+---
+
+### Updating the `clira-windows-installer` bundle with updated libslax/lighttpd-for-juise/juise packages.
+
+In order to update the 3 packages we maintain, simply copy them to their
+respective directories in the `clira-windows-installer` repo.  Eg:
+`cygwin/local/x86/release/lighttpd-for-juise` or
+`cygwin/local/x86/release/juise`.
+
+After you have done this, you will need to update their entries in
+`cygwin/local/x86/setup.ini`.
+
+You do this by going into your cygwin shell and run the `bin/genini` script:  
+
+```
+cd clira-windows-installer/cygwin/local
+../../bin/genini -r x86 > setup.ini.updated
+```
+
+At this point, the proper setup.ini entries will be captured in the
+setup.ini.updated file.  You will need to manually go into the
+`clira-windows-installer/cygwin/local/x86/setup.ini` file and replace the
+entries for juise/libslax/lighttpd-for-juise with the new entries.
