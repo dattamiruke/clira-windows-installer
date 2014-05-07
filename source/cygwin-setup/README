@@ -1,0 +1,103 @@
+This directory contains the source code for the Setup program
+for the Cygwin net releases.
+
+HOW TO BUILD:
+-------------
+Setup should build out-of-the-box on any Cygwin environment that has all the
+required packages installed:
+  - mingw-gcc-g++
+  - make
+  - mingw-bzip2
+  - mingw-libgcrypt-devel
+  - mingw-liblzma-devel
+  - mingw-zlib
+  - and all packages that are dependencies of the above, i.e.  gcc-mingw-core,
+    mingw-runtime, binutils, w*api, etc.
+  - upx (optional)
+
+The following additional packages are required if building from CVS, not from
+a source tarball, or if you want to make changes to the build system.
+  - recent autoconf
+  - recent automake
+  - recent libtool
+  - flex
+  - bison
+
+Build commands:
+1) Configure using this option
+   $ /path/to/setup/bootstrap.sh
+   This will automatically rebuild configure files and run configure in the
+   current directory.
+2) $ make
+
+3) Wondering why your binary is so much bigger than the official releases?
+   Remove debugging symbols:
+   $ strip -s setup.exe
+   Compress using UPX:
+   $ upx -9 setup.exe
+
+CODING GUIDELINES:
+------------------
+setup has a number of different code formats in it. This is ok as long
+as it stays readable. When submitting a patch, make sure that you use
+the coding-style of the surrounding code.
+
+For new code, use the GNU standards as much as possible.  We understand
+that this is not a precise fit for C++ code but you can use Cygwin itself
+as a guide.
+
+
+SUBMITTING A PATCH:
+-------------------
+As per cygwin1.dll and many GNU projects:
+
+No changelog in the patch itself.
+Attach the changelog to the email.
+Use, at a minimum "diff -uN" when constructing diffs for submission.
+As much as possible please provide only one goal per patch.
+
+
+WISHLIST:
+---------
+ * Don't downgrade if the curr version is <= installed?
+ * Support rpm/deb files for reading the package from. (To allow the
+   maintainers the use of rpm/deb tools to create packages.)
+ * Make a librar(y|ies) for setup and cygcheck to use containing 
+   1) Something to translate POSIX -> native.  Currently called "cygpath"
+      in setup, although this is probably a bad choice of name.
+   2) Something to return the list of installed packages.
+   3) Something to return the cygwin mount table.  Currently, I have implemented
+      a lightweight setmntent and getmntent using the code in 
+   4) Something to parse a tar file name into package/version or alternatively,
+      return that information from 2)
+   5) Something to return a list of files associated with a package.
+ * Mark versions as prev/curr/test in the GUI when clicking through them.
+ * Make setup.exe available through Add/Remove
+ * Remove installed packages from Misc when other (non-All) categories are
+   found.
+ * Local package scan stops updating when it stops being the active window.
+ * Some way to download *all* the source.
+ * Incremental/recoverable download capability.
+ * Build-depends.
+ * FTP control connections should be closed when we are awaiting user input.
+ * Show a sdesc for each category.
+ * Add friendly error reporting to simpsock.cc.
+ * Scan newly installed files for README files, show list to user, let them
+   read them if they want.
+ * Clicking on a package that is in multiple categories should update the view
+   of the package in both locations on screen. - Done?
+ * Remember the view mode - ie if you leave setup in partial, it returns to
+   partial automatically.
+ * Downloading from the internet should be _able_ to list based on what is
+   present in the cache, as opposed to what is installed. (To help building a
+   complete install set for a different machine).
+ * New view - "action / category / package"
+ * New view - show installed packages only. Probably not categorised.
+ * Don't ask about the start menu or desktop options if they already exist.
+ * Save the manual proxy settings so they don't need to be retyped.
+ * Detect files in multiple packages.
+ * Run a different script after finishing setup.
+ * Show bin and src download size.
+ * Confirm cancellation of setup if in the middle of doing something.
+ * Improve mirror selection UI.
+ * Ability to "hold" the version of a package - i.e. never auto-upgrade.
