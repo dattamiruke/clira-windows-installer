@@ -68,7 +68,9 @@ and juise packages for Cygwin.
 * Checkout libslax from https://github.com/Juniper/libslax.git
 
 ```
-cd libslax/packaging/cygwin
+cd libslax
+autoreconf -f -i
+cd packaging/cygwin
 ./cygwin.sh
 ```
 
@@ -79,7 +81,9 @@ cd libslax/packaging/cygwin
 * Checkout lighttpd-for-juise from https://github.com/Juniper/lighttpd-for-juise.git
 
 ```
-cd lighttpd-for-juise/packaging/cygwin
+cd lighttpd-for-juise
+./autogen.sh
+cd packaging/cygwin
 ./cygwin.sh
 ```
 
@@ -90,7 +94,9 @@ cd lighttpd-for-juise/packaging/cygwin
 * Checkout juise from https://github.com/Juniper/juise.git
 
 ```
-cd juise/packaging/cygwin
+cd juise
+autoreconf -f -i
+cd packaging/cygwin
 ./cygwin.sh <path-to-lighttpd-from-previous-step>
 ```
 
@@ -112,7 +118,7 @@ You do this by going into your cygwin shell and run the `bin/genini` script:
 
 ```
 cd clira-windows-installer/cygwin/local
-../../bin/genini -r x86 > setup.ini.updated
+../../bin/genini --recursive --arch x86 * > setup.ini.updated
 ```
 
 At this point, the proper setup.ini entries will be captured in the
