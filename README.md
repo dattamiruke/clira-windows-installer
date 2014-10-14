@@ -51,16 +51,6 @@ and juise packages for Cygwin.
     vim  
     wget  
 
-* You will need to install a few php packages from CYGWINPORTS.  Visit
-  https://sourceware.org/cygwinports/ for instructions on how to add the
-  CYGWINPORTS repository.  Install the following CYGWINPORTS packages:
-
-    php  
-    php-json  
-    php-pdo_sqlite  
-    php-posix  
-    php-sqlite3  
-
 ---
 
 ### libslax
