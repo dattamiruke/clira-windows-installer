@@ -1,3 +1,3 @@
 @echo off
 chdir "$APPDIR$\cygwin\bin"
-bash --login -c "/usr/bin/bash /usr/local/etc/lighttpd-wrapper.sh start"
+bash --login -c "/usr/bin/bash /usr/local/bin/run-clira start"

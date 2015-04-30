@@ -3,6 +3,9 @@
 #define MyAppPublisher "Juniper Networks, Inc."
 #define MyAppURL "https://github.com/Juniper/juise"
 
+; Change the below define to be the location where you checked out clira-windows-installer
+#define CliraWindowsInstallerRoot "C:\CLIRABASE"
+
 ; app = application install dir
 ; tmp = temp dir
 ; win = windows dir
@@ -31,9 +34,9 @@ WelcomeLabel2=This will install [name/ver] on your computer.%n%nIt is recommende
 FinishedLabel=CLIRA has been successfully installed.  To start and stop the CLIRA service, use the scripts provided in the installation folder.
 
 [Files]
-Source: "C:\CLIRABASE\cygwin\*"; DestDir: "{tmp}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\CLIRABASE\Start CLIRA.bat"; DestDir: "{app}";
-Source: "C:\CLIRABASE\Stop CLIRA.bat"; DestDir: "{app}";
+Source: "{#CliraWindowsInstallerRoot}\cygwin\*"; DestDir: "{tmp}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#CliraWindowsInstallerRoot}\Start CLIRA.bat"; DestDir: "{app}";
+Source: "{#CliraWindowsInstallerRoot}\Stop CLIRA.bat"; DestDir: "{app}";
 
 [Icons]
 Name: "{group}\Start CLIRA Service"; Filename: "{app}\Start CLIRA.bat";
@@ -41,7 +44,7 @@ Name: "{group}\Stop CLIRA Service"; Filename: "{app}\Stop CLIRA.bat";
 Name: "{group}\Open Browser to CLIRA"; Filename: "http://127.0.0.1:{code:GetCliraPort}/clira/index.html";
 
 [Run]
-Filename: "{tmp}\setup-x86.exe"; Parameters: "-L -l ""{tmp}\local"" -a x86 -P libbz2_1,libcurl4,libopenssl100,libpcre0,libsqlite3_0,libssh2_1,libuuid1,libxml2,libxslt,openssh,php,php-json,php-pdo_sqlite,php-posix,php-sqlite3,libslax,lighttpd-for-juise,juise -q -n -R ""{app}\cygwin""";
+Filename: "{tmp}\setup-x86.exe"; Parameters: "-L -l ""{tmp}\local"" -a x86 -P  libbz2_1,libcurl4,libopenssl100,libpcre0,libsqlite3_0,libssh2_1,libuuid1,libxml2,libxslt,openssh,libslax,lighttpd-for-juise,juise -q -n -R ""{app}\cygwin""";
 Filename: "{app}\cygwin\bin\bash.exe"; Parameters: "--login -c ""/usr/local/bin/mixer --create-db"""; Flags: runhidden;
 
 [UninstallRun]
