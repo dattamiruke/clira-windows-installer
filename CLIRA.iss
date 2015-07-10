@@ -1,5 +1,5 @@
 #define MyAppName "CLIRA"
-#define MyAppVersion "0.5.8"
+#define MyAppVersion "0.7.0"
 #define MyAppPublisher "Juniper Networks, Inc."
 #define MyAppURL "https://github.com/Juniper/juise"
 
