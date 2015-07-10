@@ -41,7 +41,7 @@ Source: "{#CliraWindowsInstallerRoot}\Stop CLIRA.bat"; DestDir: "{app}";
 [Icons]
 Name: "{group}\Start CLIRA Service"; Filename: "{app}\Start CLIRA.bat";
 Name: "{group}\Stop CLIRA Service"; Filename: "{app}\Stop CLIRA.bat";
-Name: "{group}\Open Browser to CLIRA"; Filename: "http://127.0.0.1:{code:GetCliraPort}/clira/index.html";
+Name: "{group}\Open Browser to CLIRA"; Filename: "http://127.0.0.1:{code:GetCliraPort}/";
 
 [Run]
 Filename: "{tmp}\setup-x86.exe"; Parameters: "-L -l ""{tmp}\local"" -a x86 -P  libbz2_1,libcurl4,libopenssl100,libpcre0,libsqlite3_0,libssh2_1,libuuid1,libxml2,libxslt,openssh,libslax,lighttpd-for-juise,juise -q -n -R ""{app}\cygwin""";
