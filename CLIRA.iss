@@ -50,6 +50,9 @@ Filename: "{app}\cygwin\bin\bash.exe"; Parameters: "--login -c ""/usr/local/bin/
 [UninstallRun]
 Filename: "{app}\Stop CLIRA.bat"; Flags: runhidden;
 
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}"
+
 [Code]
 var
 portPage : TInputQueryWizardPage;
