@@ -51,7 +51,16 @@ and juise packages for Cygwin.
     vim  
     wget  
 
+* Alternatively you can simply run the installer with the command line
+  parameters (modify paths appropriately):
+
+
+```
+C:\cygwin32>setup-x86.exe -a x86 -P autoconf,automake,bison,cvs,gcc-core,git,libbz2-devel,libcurl-devel,libpcre-devel,libsqlite3-devel,libssh2-devel,libtool,libuuid-devel,libxml2-devel,make,libxslt-devel,openssh,openssl-devel,patch,pkg-config,vim,wget -q -n -R c:\cygwin32
+```
+
 ---
+
 
 ### libslax
 
@@ -64,7 +73,17 @@ cd packaging/cygwin
 ./cygwin.sh
 ```
 
-* This should build a libslax bundle for cygwin
+At this point you have a cygwin libslax bundle built.  If you are fully
+building CLIRA then you will need to:
+
+```
+cd ../..
+./configure
+make install
+```
+
+You need to install libslax in the local cygwin install because juise requires
+it.
 
 ### lighttpd-for-juise
 
@@ -77,7 +96,17 @@ cd packaging/cygwin
 ./cygwin.sh
 ```
 
-* This should build a lighttpd-for-juise bundle for cygwin
+At this point you will have a lighttpd-for-juise cygwin bundle built.  If you
+are fully building CLIRA then you will need to:
+
+```
+cd ../..
+./configure --with-websocket=ALL --without-libicu
+make
+```
+
+You need the object files for lighttpd-for-juise built for the following juise
+build.
 
 ### juise
 
@@ -89,8 +118,6 @@ autoreconf -f -i
 cd packaging/cygwin
 ./cygwin.sh <path-to-lighttpd-from-previous-step>
 ```
-
-* This should build a juise bundle for cygwin
 
 ---
 

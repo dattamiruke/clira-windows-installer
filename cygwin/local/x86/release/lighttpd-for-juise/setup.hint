@@ -3,7 +3,7 @@
 @ lighttpd-for-juise
 
 category: Web
-requires: crypt libattr1 libbz2_1 libfam0 libgcc1 libopenssl100 libpcre1 libsqlite3_0 libuuid1 libxml2 zlib0 _autorebase cygwin
+requires: crypt libattr1 libbz2_1 libfam0 libgcc1 libopenssl100 libpcre1 libsqlite3_0 libuuid1 libxml2 zlib0 python
 sdesc: "lighttpd Web server"
 ldesc: "Lighttpd Web server with various patches (including mod_websocket)
 that are required for Clira/Juise operation"

@@ -3,7 +3,7 @@
 @ libslax
 
 category: Libs
-requires: libxml2 libxslt libcurl4
+requires: libxml2 libxslt libcurl4 libsqlite3_0
 sdesc: "libslax library"
 ldesc: "SLAX is an alternative syntax for XSLT which is tailored for
 readability and familiarity, following the style of C and Perl."
